@@ -1,0 +1,75 @@
+/* src/index.css */
+:root {
+  --bg-cyber: #111827;
+  /* Fondo muy oscuro (casi negro) */
+  --card-cyber: #1f2937;
+  /* Fondo de las tarjetas */
+  --text-main: #f3f4f6;
+  /* Texto blanco suave */
+  --text-muted: #9ca3af;
+  /* Texto secundario gris */
+
+  /* Colores Neón */
+  --neon-blue: #3b82f6;
+  --neon-green: #10b981;
+  --neon-red: #ef4444;
+  --neon-yellow: #f59e0b;
+}
+
+body {
+  background-color: var(--bg-cyber) !important;
+  /* Fuerza el fondo oscuro */
+  color: var(--text-main) !important;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Mejoras para las Tarjetas */
+.card {
+  background-color: var(--card-cyber) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Textos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Badges (Etiquetas) Brillantes */
+.badge {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+/* Efecto de Brillo (Glow) para los bordes */
+.border-success {
+  border-color: var(--neon-green) !important;
+}
+
+.border-danger {
+  border-color: var(--neon-red) !important;
+}
+
+.border-warning {
+  border-color: var(--neon-yellow) !important;
+}
+
+.border-primary {
+  border-color: var(--neon-blue) !important;
+}

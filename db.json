@@ -1,0 +1,135 @@
+{
+  "roles": [
+    {
+      "id": "1",
+      "nombre": "Admin"
+    },
+    {
+      "id": "2",
+      "nombre": "Empleado"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "user": "admin",
+      "pass": "123",
+      "id_rol": 1
+    },
+    {
+      "id": "2",
+      "user": "cajero",
+      "pass": "123",
+      "id_rol": 2
+    }
+  ],
+  "membresias": [
+    {
+      "id": "1",
+      "nombre": "Novato (Bronce)",
+      "descuento": 0,
+      "horas_requeridas": 0
+    },
+    {
+      "id": "2",
+      "nombre": "Veterano (Plata)",
+      "descuento": 10,
+      "horas_requeridas": 10
+    },
+    {
+      "id": "3",
+      "nombre": "Leyenda (Oro)",
+      "descuento": 20,
+      "horas_requeridas": 30
+    }
+  ],
+  "salas": [
+    {
+      "id": "1",
+      "nombre": "Sala General"
+    },
+    {
+      "id": "2",
+      "nombre": "Arena E-Sports"
+    }
+  ],
+  "computadoras": [
+    {
+      "id": "101",
+      "nombre": "PC-01",
+      "specs": "RTX 3060",
+      "id_sala": 1,
+      "estado": "Disponible"
+    },
+    {
+      "id": "102",
+      "nombre": "PC-02",
+      "specs": "RTX 3060",
+      "id_sala": 1,
+      "estado": "Ocupada"
+    },
+    {
+      "id": "201",
+      "nombre": "PC-PRO-01",
+      "specs": "RTX 4090",
+      "id_sala": 2,
+      "estado": "Disponible"
+    }
+  ],
+  "clientes": [
+    {
+      "id": "1",
+      "nombre": "Juan Perez",
+      "nickname": "Slayer",
+      "id_membresia": "1"
+    },
+    {
+      "id": "2",
+      "nombre": "Maria Lopez",
+      "nickname": "Mary",
+      "id_membresia": 1
+    }
+  ],
+  "juegos": [
+    {
+      "id": "1",
+      "titulo": "Valorant",
+      "genero": "FPS"
+    },
+    {
+      "id": "2",
+      "titulo": "Dota 2",
+      "genero": "MOBA"
+    }
+  ],
+  "instalaciones": [
+    {
+      "id": "1",
+      "id_computadora": 101,
+      "id_juego": 1
+    },
+    {
+      "id": "2",
+      "id_computadora": 101,
+      "id_juego": 2
+    }
+  ],
+  "productos": [
+    {
+      "id": "1",
+      "nombre": "Coca Cola",
+      "precio": 3,
+      "stock": 50
+    }
+  ],
+  "sesiones": [
+    {
+      "id": "1",
+      "id_cliente": 1,
+      "id_computadora": 102,
+      "hora_inicio": "10:00",
+      "horas": 2,
+      "total": 10
+    }
+  ]
+}
