@@ -1,16 +1,36 @@
-# React + Vite
+# 🎮 CyberManager - Sistema de Gestión para LAN Center
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema web administrativo diseñado para gestionar el alquiler de computadoras, control de usuarios y venta de productos en un Ciber Café.
 
-Currently, two official plugins are available:
+### 🚀 Tecnologías
+* **Frontend:** React + Vite
+* **Estilos:** Bootstrap / CSS
+* **Backend:** JSON Server (API REST simulada)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 📋 Funcionalidades Principales
+* **Dashboard:** Vista general de PCs disponibles y ocupadas.
+* **Gestión de Alquiler:** Control de sesiones por tiempo y costo.
+* **Administración:** CRUD completo de 10 entidades (PCs, Clientes, Juegos, Productos, Empleados, etc.).
+* **Seguridad:** Login de acceso para administradores.
 
-## React Compiler
+### 🛠️ Instalación y Ejecución
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1.  **Clonar el repositorio**
+    ```bash
+    git clone [https://github.com/TU_USUARIO/cyber-manager.git](https://github.com/TU_USUARIO/cyber-manager.git)
+    cd cyber-manager
+    ```
 
-## Expanding the ESLint configuration
+2.  **Instalar dependencias**
+    ```bash
+    npm install
+    ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3.  **Iniciar Servidor (JSON Server) y Frontend**
+    ```bash
+    npm run server
+    npm run dev
+    ```
+
+---
+*Proyecto desarrollado para el curso de JavaScript Avanzado*
