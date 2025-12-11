@@ -56,7 +56,7 @@ const PageReports = () => {
                         <div className="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 className="opacity-75">INGRESOS TOTALES</h6>
-                                <h1 className="fw-bold mb-0">${stats.ingresosTotales.toFixed(2)}</h1>
+                                <h1 className="fw-bold mb-0">S./{stats.ingresosTotales.toFixed(2)}</h1>
                             </div>
                             <FaDollarSign size={50} opacity={0.3} />
                         </div>
@@ -80,7 +80,7 @@ const PageReports = () => {
                         <div className="d-flex justify-content-between align-items-center">
                             <div>
                                 <h6 className="opacity-75">GANANCIAS DE HOY</h6>
-                                <h1 className="fw-bold mb-0">${stats.ingresosHoy.toFixed(2)}</h1>
+                                <h1 className="fw-bold mb-0">S./{stats.ingresosHoy.toFixed(2)}</h1>
                             </div>
                             <FaCalendarAlt size={50} opacity={0.3} />
                         </div>
@@ -118,7 +118,7 @@ const PageReports = () => {
                                         <div className="small text-muted">{sesion.fecha} - PC {sesion.id_pc}</div>
                                     </div>
                                     <span className="badge bg-success rounded-pill fs-6">
-                                        ${(sesion.total || 0).toFixed(2)}
+                                        S./{(sesion.total || 0).toFixed(2)}
                                     </span>
                                 </div>
                             ))}

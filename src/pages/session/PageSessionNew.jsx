@@ -124,7 +124,7 @@ const PageSessionNew = () => {
 
     }, [idPC, horas, idCliente, carrito, computadoras, tarifas, clientes, membresias]);
 
-    // 8. GUARDAR TODO (AQUÍ ESTÁ LA CLAVE DEL "TOTAL")
+    // 8. GUARDAR TODO
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!idCliente || !idPC) return alert("Faltan datos");
@@ -164,18 +164,17 @@ const PageSessionNew = () => {
             });
 
             // C. GUARDAR EN EL HISTORIAL (REPORTES)
-            // IMPORTANTE: Usamos el campo 'total' para que coincida con tu BD
             await fetch('http://localhost:3001/sesiones', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     id_cliente: parseInt(idCliente),
-                    cliente_nombre: nombreCliente, // Guardamos el nombre para facilitar el reporte
+                    cliente_nombre: nombreCliente,
                     id_pc: parseInt(idPC),
                     fecha: fechaHoy,
                     hora_inicio: horaActual,
                     horas: horas,
-                    total: totalPagar // <--- AQUÍ GUARDAMOS EL DINERO
+                    total: totalPagar
                 })
             });
 
@@ -184,7 +183,7 @@ const PageSessionNew = () => {
             return alert("Error al procesar la sesión");
         }
 
-        alert(`¡Cobro exitoso de $${totalPagar.toFixed(2)}! Guardado en reportes.`);
+        alert(`¡Cobro exitoso de S/. ${totalPagar.toFixed(2)}! Guardado en reportes.`);
         navigate('/dashboard');
     };
 
@@ -222,7 +221,8 @@ const PageSessionNew = () => {
                                 <option value="">-- Elegir --</option>
                                 {computadoras.filter(pc => pc.estado === 'disponible' || pc.id == idPC).map(pc => {
                                     const precio = tarifas[pc.tipo]?.precio || 0;
-                                    return <option key={pc.id} value={pc.id}>{pc.nombre} (${precio}/h)</option>
+                                    // CAMBIO: Mostrar precio en Soles
+                                    return <option key={pc.id} value={pc.id}>{pc.nombre} (S/. {precio}/h)</option>
                                 })}
                             </select>
                         </div>
@@ -242,7 +242,8 @@ const PageSessionNew = () => {
                             <option value="">-- Agregar Producto --</option>
                             {productos.map(prod => (
                                 <option key={prod.id} value={prod.id} disabled={prod.stock <= 0}>
-                                    {prod.nombre} - ${prod.precio.toFixed(2)} (Stock: {prod.stock})
+                                    {/* CAMBIO: Mostrar precio en Soles */}
+                                    {prod.nombre} - S/. {prod.precio.toFixed(2)} (Stock: {prod.stock})
                                 </option>
                             ))}
                         </select>
@@ -258,15 +259,17 @@ const PageSessionNew = () => {
                                 <div key={index} className="d-flex justify-content-between align-items-center mb-1 border-bottom border-secondary pb-1 small">
                                     <span>{item.nombre}</span>
                                     <div>
-                                        <span className="me-3 fw-bold">${item.precio.toFixed(2)}</span>
+                                        {/* CAMBIO: Mostrar precio en Soles */}
+                                        <span className="me-3 fw-bold">S/. {item.precio.toFixed(2)}</span>
                                         <button type="button" className="btn btn-sm btn-danger py-0 px-1" onClick={() => eliminarProducto(index)}>
                                             <FaTrash size={10} />
                                         </button>
                                     </div>
                                 </div>
                             ))}
+                            {/* CAMBIO: Total Cafetería en Soles */}
                             <div className="text-end fw-bold text-info mt-2 small">
-                                Total Cafetería: ${costoProductos.toFixed(2)}
+                                Total Cafetería: S/. {costoProductos.toFixed(2)}
                             </div>
                         </div>
                     )}
@@ -275,18 +278,21 @@ const PageSessionNew = () => {
                     <div className="bg-light text-dark p-3 rounded mb-4 shadow-sm">
                         <div className="d-flex justify-content-between small">
                             <span>Alquiler PC ({horas}h):</span>
-                            <span>${costoTiempo.toFixed(2)}</span>
+                            {/* CAMBIO: S/. */}
+                            <span>S/. {costoTiempo.toFixed(2)}</span>
                         </div>
                         {descuentoDinero > 0 && (
                             <div className="d-flex justify-content-between text-success fw-bold small">
                                 <span>Desc. Membresía:</span>
-                                <span>- ${descuentoDinero.toFixed(2)}</span>
+                                {/* CAMBIO: S/. */}
+                                <span>- S/. {descuentoDinero.toFixed(2)}</span>
                             </div>
                         )}
                         {costoProductos > 0 && (
                             <div className="d-flex justify-content-between text-info fw-bold small">
                                 <span>Productos:</span>
-                                <span>+ ${costoProductos.toFixed(2)}</span>
+                                {/* CAMBIO: S/. */}
+                                <span>+ S/. {costoProductos.toFixed(2)}</span>
                             </div>
                         )}
                         <hr className="my-2" />
@@ -294,7 +300,8 @@ const PageSessionNew = () => {
                             <div className="d-flex align-items-center gap-2 fw-bold">
                                 <FaCalculator /> <span>A PAGAR:</span>
                             </div>
-                            <span className="fs-1 fw-bold text-primary">${totalPagar.toFixed(2)}</span>
+                            {/* CAMBIO: Total Final en Soles */}
+                            <span className="fs-1 fw-bold text-primary">S/. {totalPagar.toFixed(2)}</span>
                         </div>
                     </div>
 

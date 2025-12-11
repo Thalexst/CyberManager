@@ -109,7 +109,7 @@
       "estado": "ocupado",
       "tipo": "std",
       "cliente": "Kratos",
-      "hora_inicio": "00:05"
+      "hora_inicio": "00:28"
     },
     {
       "id": "104",
@@ -311,7 +311,7 @@
       "id": "5",
       "nombre": "Agua Mineral",
       "precio": 2,
-      "stock": 40,
+      "stock": 39,
       "categoria": "Bebidas"
     },
     {
@@ -352,6 +352,16 @@
       "hora_inicio": "00:10",
       "horas": 3,
       "total": 8.5
+    },
+    {
+      "id": "fc57",
+      "id_cliente": 3,
+      "cliente_nombre": "Kratos",
+      "id_pc": 103,
+      "fecha": "2025-12-11",
+      "hora_inicio": "00:28",
+      "horas": 6,
+      "total": 12.8
     }
   ]
 }

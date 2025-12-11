@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { createItem, updateItem, deleteItem } from '../../services/api';
 import { ProductoModel } from '../../types/InitialStates';
 import { useFetch } from '../../hooks/useFetch';
-import { formatCurrency } from '../../utils/formatters';
+// import { formatCurrency } from '../../utils/formatters'; // <--- Ya no la necesitamos aquí si lo hacemos manual
 import { FaEdit, FaTrash, FaHamburger, FaSave, FaPlus } from 'react-icons/fa';
 
 function PageProductList() {
@@ -99,7 +99,8 @@ function PageProductList() {
                         />
                     </div>
                     <div className="col-md-3">
-                        <label className="small text-muted">Precio ($)</label>
+                        {/* CAMBIO 1: Etiqueta con S/. */}
+                        <label className="small text-muted">Precio (S/.)</label>
                         <input
                             type="number"
                             step="0.50"
@@ -161,7 +162,10 @@ function PageProductList() {
                                 <h5 className="card-title fw-bold text-truncate px-2">{p.nombre}</h5>
 
                                 <div className="my-3">
-                                    <h3 className="text-warning m-0">{formatCurrency(p.precio)}</h3>
+                                    {/* CAMBIO 2: Formato manual en Soles */}
+                                    <h3 className="text-warning m-0">
+                                        S/. {Number(p.precio).toFixed(2)}
+                                    </h3>
                                 </div>
 
                                 <span className={`badge ${p.stock < 10 ? 'bg-danger' : 'bg-success'} text-dark`}>
