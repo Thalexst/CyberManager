@@ -1,12 +1,35 @@
 {
+  "tarifas": {
+    "std": {
+      "nombre": "Standard",
+      "precio": 2,
+      "desc": "Navegación / Ofimática",
+      "color": "secondary",
+      "icon": "pc"
+    },
+    "gmr": {
+      "nombre": "Gamer",
+      "precio": 3.5,
+      "desc": "Fortnite / Valorant / LoL",
+      "color": "primary",
+      "icon": "game"
+    },
+    "vip": {
+      "nombre": "VIP Ultra",
+      "precio": 6,
+      "desc": "Streaming / RTX 4090 / 240Hz",
+      "color": "warning",
+      "icon": "vip"
+    }
+  },
   "roles": [
     {
       "id": "1",
-      "nombre": "Admin"
+      "nombre": "Administrador"
     },
     {
       "id": "2",
-      "nombre": "Empleado"
+      "nombre": "Cajero"
     }
   ],
   "usuarios": [
@@ -18,7 +41,7 @@
     },
     {
       "id": "2",
-      "user": "cajero",
+      "user": "empleado",
       "pass": "123",
       "id_rol": 2
     }
@@ -26,54 +49,137 @@
   "membresias": [
     {
       "id": "1",
-      "nombre": "Novato (Bronce)",
+      "nombre": "Bronce (Novato)",
       "descuento": 0,
       "horas_requeridas": 0
     },
     {
       "id": "2",
-      "nombre": "Veterano (Plata)",
+      "nombre": "Plata (Veterano)",
       "descuento": 10,
-      "horas_requeridas": 10
+      "horas_requeridas": 20
     },
     {
       "id": "3",
-      "nombre": "Leyenda (Oro)",
+      "nombre": "Oro (Leyenda)",
       "descuento": 20,
-      "horas_requeridas": 30
+      "horas_requeridas": 50
     }
   ],
   "salas": [
     {
       "id": "1",
-      "nombre": "Sala General"
+      "nombre": "Sala Principal"
     },
     {
       "id": "2",
       "nombre": "Arena E-Sports"
+    },
+    {
+      "id": "3",
+      "nombre": "Cabinas Privadas"
     }
   ],
   "computadoras": [
     {
       "id": "101",
       "nombre": "PC-01",
-      "specs": "RTX 3060",
+      "specs": "i3 / 8GB RAM",
       "id_sala": 1,
-      "estado": "Disponible"
+      "estado": "ocupado",
+      "tipo": "std",
+      "cliente": "Slayer",
+      "hora_inicio": "00:09"
     },
     {
       "id": "102",
       "nombre": "PC-02",
-      "specs": "RTX 3060",
+      "specs": "i3 / 8GB RAM",
       "id_sala": 1,
-      "estado": "Ocupada"
+      "estado": "ocupado",
+      "tipo": "std",
+      "cliente": "Mary",
+      "hora_inicio": "00:10"
+    },
+    {
+      "id": "103",
+      "nombre": "PC-03",
+      "specs": "i3 / 8GB RAM",
+      "id_sala": 1,
+      "estado": "ocupado",
+      "tipo": "std",
+      "cliente": "Kratos",
+      "hora_inicio": "00:05"
+    },
+    {
+      "id": "104",
+      "nombre": "PC-04",
+      "specs": "i3 / 8GB RAM",
+      "id_sala": 1,
+      "estado": "mantenimiento",
+      "tipo": "std",
+      "cliente": "",
+      "hora_inicio": ""
     },
     {
       "id": "201",
-      "nombre": "PC-PRO-01",
-      "specs": "RTX 4090",
+      "nombre": "GMR-01",
+      "specs": "i5 / RTX 3060",
       "id_sala": 2,
-      "estado": "Disponible"
+      "estado": "disponible",
+      "tipo": "gmr",
+      "cliente": "",
+      "hora_inicio": ""
+    },
+    {
+      "id": "202",
+      "nombre": "GMR-02",
+      "specs": "i5 / RTX 3060",
+      "id_sala": 2,
+      "estado": "disponible",
+      "tipo": "gmr",
+      "cliente": "",
+      "hora_inicio": ""
+    },
+    {
+      "id": "203",
+      "nombre": "GMR-03",
+      "specs": "i5 / RTX 3060",
+      "id_sala": 2,
+      "estado": "disponible",
+      "tipo": "gmr",
+      "cliente": "",
+      "hora_inicio": ""
+    },
+    {
+      "id": "204",
+      "nombre": "GMR-04",
+      "specs": "i5 / RTX 3060",
+      "id_sala": 2,
+      "estado": "disponible",
+      "tipo": "gmr",
+      "cliente": "",
+      "hora_inicio": ""
+    },
+    {
+      "id": "301",
+      "nombre": "VIP-01",
+      "specs": "i9 / RTX 4090",
+      "id_sala": 3,
+      "estado": "disponible",
+      "tipo": "vip",
+      "cliente": "",
+      "hora_inicio": ""
+    },
+    {
+      "id": "302",
+      "nombre": "VIP-02",
+      "specs": "i9 / RTX 4090",
+      "id_sala": 3,
+      "estado": "mantenimiento",
+      "tipo": "vip",
+      "cliente": "",
+      "hora_inicio": ""
     }
   ],
   "clientes": [
@@ -81,55 +187,171 @@
       "id": "1",
       "nombre": "Juan Perez",
       "nickname": "Slayer",
-      "id_membresia": "1"
+      "id_membresia": "3",
+      "saldo": 15.5
     },
     {
       "id": "2",
       "nombre": "Maria Lopez",
       "nickname": "Mary",
-      "id_membresia": 1
+      "id_membresia": "1",
+      "saldo": 0
+    },
+    {
+      "id": "3",
+      "nombre": "Carlos Ruiz",
+      "nickname": "Kratos",
+      "id_membresia": "2",
+      "saldo": 5
+    },
+    {
+      "id": "4",
+      "nombre": "Ana Torres",
+      "nickname": "Valkyrie",
+      "id_membresia": "2",
+      "saldo": 2.5
+    },
+    {
+      "id": "5",
+      "nombre": "Pedro Gomez",
+      "nickname": "NoobMaster",
+      "id_membresia": "1",
+      "saldo": 10
     }
   ],
   "juegos": [
     {
       "id": "1",
       "titulo": "Valorant",
-      "genero": "FPS"
+      "genero": "FPS",
+      "imagen": "valorant.jpg"
     },
     {
       "id": "2",
-      "titulo": "Dota 2",
-      "genero": "MOBA"
+      "titulo": "League of Legends",
+      "genero": "MOBA",
+      "imagen": "lol.jpg"
+    },
+    {
+      "id": "3",
+      "titulo": "Fortnite",
+      "genero": "Battle Royale",
+      "imagen": "fortnite.jpg"
+    },
+    {
+      "id": "4",
+      "titulo": "Counter Strike 2",
+      "genero": "FPS",
+      "imagen": "cs2.jpg"
+    },
+    {
+      "id": "5",
+      "titulo": "Minecraft",
+      "genero": "Survival",
+      "imagen": "minecraft.jpg"
     }
   ],
   "instalaciones": [
     {
       "id": "1",
-      "id_computadora": 101,
+      "id_computadora": 201,
       "id_juego": 1
     },
     {
       "id": "2",
-      "id_computadora": 101,
+      "id_computadora": 201,
       "id_juego": 2
+    },
+    {
+      "id": "3",
+      "id_computadora": 301,
+      "id_juego": 1
+    },
+    {
+      "id": "4",
+      "id_computadora": 301,
+      "id_juego": 3
+    },
+    {
+      "id": "5",
+      "id_computadora": 301,
+      "id_juego": 4
     }
   ],
   "productos": [
     {
       "id": "1",
-      "nombre": "Coca Cola",
+      "nombre": "Coca Cola 500ml",
       "precio": 3,
-      "stock": 50
+      "stock": 43,
+      "categoria": "Bebidas"
+    },
+    {
+      "id": "2",
+      "nombre": "Inca Kola 500ml",
+      "precio": 3,
+      "stock": 49,
+      "categoria": "Bebidas"
+    },
+    {
+      "id": "3",
+      "nombre": "Papas Lays",
+      "precio": 2.5,
+      "stock": 19,
+      "categoria": "Snacks"
+    },
+    {
+      "id": "4",
+      "nombre": "Galletas Oreo",
+      "precio": 1.5,
+      "stock": 29,
+      "categoria": "Snacks"
+    },
+    {
+      "id": "5",
+      "nombre": "Agua Mineral",
+      "precio": 2,
+      "stock": 40,
+      "categoria": "Bebidas"
+    },
+    {
+      "id": "6",
+      "nombre": "Monster Energy",
+      "precio": 8,
+      "stock": 10,
+      "categoria": "Bebidas"
     }
   ],
   "sesiones": [
     {
-      "id": "1",
+      "id": "d5c1",
+      "id_cliente": 3,
+      "cliente_nombre": "Kratos",
+      "id_pc": 103,
+      "fecha": "2025-12-11",
+      "hora_inicio": "00:05",
+      "horas": 5,
+      "total": 12
+    },
+    {
+      "id": "66fa",
       "id_cliente": 1,
-      "id_computadora": 102,
-      "hora_inicio": "10:00",
+      "cliente_nombre": "Slayer",
+      "id_pc": 101,
+      "fecha": "2025-12-11",
+      "hora_inicio": "00:09",
       "horas": 2,
-      "total": 10
+      "total": 3.2
+    },
+    {
+      "id": "f7d2",
+      "id_cliente": 2,
+      "cliente_nombre": "Mary",
+      "id_pc": 102,
+      "fecha": "2025-12-11",
+      "hora_inicio": "00:10",
+      "horas": 3,
+      "total": 8.5
     }
   ]
 }

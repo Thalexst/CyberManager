@@ -1,16 +1,22 @@
 import { Outlet } from 'react-router-dom';
-import PageNav from '../components/PageNav'; // Tu antiguo Sidebar
+import PageNav from '../components/PageNav';
+import Topbar from '../components/Topbar'; // <--- 1. IMPORTAR
 
 const MainLayout = () => {
     return (
         <div className="d-flex">
-            {/* El menú lateral siempre visible */}
+            {/* Menú Lateral Fijo */}
             <PageNav />
 
-            {/* El contenido cambiante a la derecha */}
-            <div className="flex-grow-1" style={{ marginLeft: '250px' }}>
-                <div className="p-4">
-                    <Outlet /> {/* <--- AQUÍ SE RENDERIZAN LAS PÁGINAS HIJAS */}
+            {/* Contenido Derecha */}
+            <div className="flex-grow-1 d-flex flex-column" style={{ marginLeft: '250px', minHeight: '100vh' }}>
+
+                {/* 2. AGREGAR TOPBAR AQUÍ */}
+                <Topbar />
+
+                {/* Contenido de las páginas */}
+                <div className="p-4 pt-0"> {/* pt-0 para que no quede muy separado de la barra */}
+                    <Outlet />
                 </div>
             </div>
         </div>

@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaGamepad, FaDesktop, FaUsers, FaPowerOff, FaIdCard, FaLaptop, FaHamburger } from 'react-icons/fa';
+// Importamos todos los íconos de una sola vez
+import {
+    FaGamepad,
+    FaDesktop,
+    FaUsers,
+    FaPowerOff,
+    FaIdCard,
+    FaLaptop,
+    FaHamburger,
+    FaChartBar
+} from 'react-icons/fa';
 
-function Sidebar() {
+function PageNav() {
     const location = useLocation();
     const [usuario, setUsuario] = useState(null);
 
@@ -22,7 +32,12 @@ function Sidebar() {
 
     return (
         <div className="d-flex flex-column p-3 text-white vh-100 position-fixed" style={{ width: '250px', background: '#111', borderRight: '1px solid #333', zIndex: 1000 }}>
-            <h3 className="fs-4 mb-2 text-center text-primary fw-bold">🚀 CyberNet</h3>
+
+            {/* --- LOGO CLICKEABLE --- */}
+            <Link to="/dashboard" className="text-decoration-none">
+                <h3 className="fs-4 mb-2 text-center text-primary fw-bold">🚀 CyberNet</h3>
+            </Link>
+            {/* ----------------------- */}
 
             {/* Mostramos quién está conectado y su Rol */}
             <div className="text-center mb-4 text-muted small">
@@ -77,6 +92,17 @@ function Sidebar() {
                                 <FaGamepad /> Juegos
                             </Link>
                         </li>
+
+                        {/* --- ENLACE REPORTES --- */}
+                        <li className="nav-item mb-2">
+                            <Link
+                                to="/reportes"
+                                className={`nav-link gap-2 d-flex align-items-center ${location.pathname === '/reportes' ? 'active' : 'text-white'}`}
+                            >
+                                <FaChartBar /> Reportes
+                            </Link>
+                        </li>
+                        {/* ----------------------- */}
                     </>
                 )}
             </ul>
@@ -90,4 +116,5 @@ function Sidebar() {
         </div>
     );
 }
-export default Sidebar;
+
+export default PageNav;

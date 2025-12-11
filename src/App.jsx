@@ -16,6 +16,8 @@ import PageSessionNew from './pages/session/PageSessionNew';
 import PageGameList from './pages/games/PageGameList';
 import PageProductList from './pages/products/PageProductList';
 import PageMembershipList from './pages/memberships/PageMembershipList';
+import PageReports from './pages/reports/PageReports';
+import PageRent from "./pages/PageRent";
 
 function App() {
   return (
@@ -50,6 +52,11 @@ function App() {
           {/* Ruta Comodín: Si escriben una url rara, los manda al dashboard */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
 
+          {/* Módulo de Reportes */}
+          <Route path="/reportes" element={<PageReports />} />
+
+          {/* Módulo de Alquiler */}
+          <Route path="nueva-sesion" element={<PageRent />} />
         </Route>
 
       </Routes>

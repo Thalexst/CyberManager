@@ -1,53 +1,56 @@
 import { useState } from 'react';
-import { createItem, updateItem } from '../../services/api';
-import { useFetch } from '../../hooks/useFetch';
-
-// 1. ¡ESTA ES LA LÍNEA QUE FALTABA! Importar el Modelo
+import { createItem, updateItem, deleteItem } from '../../services/api';
 import { ClienteModel } from '../../types/InitialStates';
+import { useFetch } from '../../hooks/useFetch';
+import { FaEdit, FaTrash, FaSave, FaUserPlus, FaSync } from 'react-icons/fa';
 
 function PageClientList() {
     const { data: clientes, reload: reloadClientes } = useFetch('clientes');
     const { data: membresias } = useFetch('membresias');
     const { data: sesiones } = useFetch('sesiones');
 
-    // Usar el modelo importado
     const [formCliente, setFormCliente] = useState(ClienteModel);
+    const [editingId, setEditingId] = useState(null);
 
     const guardarCliente = async (e) => {
         e.preventDefault();
 
-        const membresiaBase = membresias ? membresias.find(m => (parseInt(m.horas_requeridas) || 0) === 0) : null;
-        const idBase = membresiaBase ? membresiaBase.id : (membresias?.[0]?.id || "1");
+        if (editingId) {
+            // MODO EDICIÓN
+            await updateItem('clientes', editingId, formCliente);
+            alert('Cliente actualizado correctamente');
+            setEditingId(null);
+        } else {
+            // MODO CREACIÓN
+            const membresiaBase = membresias ? membresias.find(m => (parseInt(m.horas_requeridas) || 0) === 0) : null;
+            const idBase = membresiaBase ? membresiaBase.id : (membresias?.[0]?.id || "1");
+            await createItem('clientes', { ...formCliente, id_membresia: idBase });
+            alert('Cliente registrado');
+        }
 
-        await createItem('clientes', { ...formCliente, id_membresia: idBase });
-
-        alert('Cliente registrado.');
         setFormCliente(ClienteModel);
         reloadClientes();
     };
 
-    const recalcularNiveles = async () => {
-        if (!membresias || !sesiones) return;
-        if (!confirm("¿Deseas recalcular el nivel de todos los clientes?")) return;
-
-        let actualizados = 0;
-        const membresiasOrdenadas = [...membresias].sort((a, b) => (parseInt(b.horas_requeridas) || 0) - (parseInt(a.horas_requeridas) || 0));
-
-        for (const cliente of clientes) {
-            const misSesiones = sesiones.filter(s => String(s.id_cliente) === String(cliente.id));
-            const horasTotales = misSesiones.reduce((total, s) => total + (parseInt(s.horas) || 0), 0);
-            const nuevaMembresia = membresiasOrdenadas.find(m => horasTotales >= (parseInt(m.horas_requeridas) || 0));
-
-            if (nuevaMembresia && String(nuevaMembresia.id) !== String(cliente.id_membresia)) {
-                await updateItem('clientes', cliente.id, { ...cliente, id_membresia: nuevaMembresia.id });
-                actualizados++;
-            }
-        }
-        alert(`Proceso terminado. Se actualizaron ${actualizados} clientes.`);
-        reloadClientes();
+    const cargarEdicion = (cliente) => {
+        setFormCliente(cliente);
+        setEditingId(cliente.id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // Helpers
+    const eliminarCliente = async (id) => {
+        if (confirm('¿Estás seguro de eliminar este cliente? Se perderá su historial.')) {
+            await deleteItem('clientes', id);
+            reloadClientes();
+        }
+    };
+
+    const cancelarEdicion = () => {
+        setEditingId(null);
+        setFormCliente(ClienteModel);
+    };
+
+    // Helpers Visuales
     const getHorasTotales = (idCliente) => {
         if (!sesiones) return 0;
         return sesiones
@@ -71,38 +74,42 @@ function PageClientList() {
 
     return (
         <div className="container mt-4">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>👥 Base de Datos de Clientes</h2>
-                <button onClick={recalcularNiveles} className="btn btn-warning fw-bold shadow">
-                    🔄 Recalcular Rangos
-                </button>
-            </div>
+            <h2 className="mb-4 text-white">👥 Gestión de Clientes</h2>
 
-            <div className="card p-4 mb-4 bg-dark text-white border-secondary">
-                <h4>Registrar Nuevo Cliente</h4>
-                <p className="text-muted small">Los nuevos clientes comienzan automáticamente con la membresía básica.</p>
+            {/* FORMULARIO */}
+            <div className={`card p-4 mb-4 border-secondary ${editingId ? 'bg-primary bg-opacity-10 border-primary' : 'bg-dark text-white'}`}>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h4 className="m-0">{editingId ? '✏️ Editando Cliente' : '➕ Registrar Nuevo Cliente'}</h4>
+                    {editingId && <button className="btn btn-sm btn-secondary" onClick={cancelarEdicion}>Cancelar</button>}
+                </div>
 
                 <form onSubmit={guardarCliente} className="row g-3">
                     <div className="col-md-6">
-                        <input className="form-control bg-secondary text-white border-0" placeholder="Nombre" value={formCliente.nombre} onChange={e => setFormCliente({ ...formCliente, nombre: e.target.value })} required />
+                        <label className="text-muted small">Nombre Real</label>
+                        <input className="form-control" placeholder="Ej. Juan Perez" value={formCliente.nombre} onChange={e => setFormCliente({ ...formCliente, nombre: e.target.value })} required />
                     </div>
                     <div className="col-md-6">
-                        <input className="form-control bg-secondary text-white border-0" placeholder="Nickname" value={formCliente.nickname} onChange={e => setFormCliente({ ...formCliente, nickname: e.target.value })} required />
+                        <label className="text-muted small">Nickname (Apodo)</label>
+                        <input className="form-control" placeholder="Ej. Slayer99" value={formCliente.nickname} onChange={e => setFormCliente({ ...formCliente, nickname: e.target.value })} required />
                     </div>
                     <div className="col-12">
-                        <button className="btn btn-success w-100">Registrar Cliente</button>
+                        <button className={`btn w-100 fw-bold ${editingId ? 'btn-primary' : 'btn-success'}`}>
+                            {editingId ? <><FaSave /> Guardar Cambios</> : <><FaUserPlus /> Registrar Cliente</>}
+                        </button>
                     </div>
                 </form>
             </div>
 
+            {/* TABLA */}
             <div className="table-responsive">
-                <table className="table table-dark table-hover table-bordered border-secondary align-middle">
+                <table className="table table-dark table-hover table-bordered align-middle border-secondary">
                     <thead className="table-active">
                         <tr>
                             <th>Nickname</th>
-                            <th>Nombre Real</th>
-                            <th>Rango Actual</th>
-                            <th className="text-center">Horas Jugadas</th>
+                            <th>Nombre</th>
+                            <th>Rango</th>
+                            <th className="text-center">Horas</th>
+                            <th className="text-end">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,8 +119,16 @@ function PageClientList() {
                                 <tr key={c.id}>
                                     <td className="fw-bold text-info">{c.nickname}</td>
                                     <td>{c.nombre}</td>
-                                    <td><span className={`badge ${getBadgeColor(nombreMemb)} px-3 py-2 rounded-pill`}>{nombreMemb}</span></td>
-                                    <td className="text-center fw-bold fs-5">{getHorasTotales(c.id)}</td>
+                                    <td><span className={`badge ${getBadgeColor(nombreMemb)}`}>{nombreMemb}</span></td>
+                                    <td className="text-center fw-bold">{getHorasTotales(c.id)}</td>
+                                    <td className="text-end">
+                                        <button onClick={() => cargarEdicion(c)} className="btn btn-sm btn-outline-warning me-2" title="Editar">
+                                            <FaEdit />
+                                        </button>
+                                        <button onClick={() => eliminarCliente(c.id)} className="btn btn-sm btn-outline-danger" title="Eliminar">
+                                            <FaTrash />
+                                        </button>
+                                    </td>
                                 </tr>
                             );
                         })}
