@@ -1,19 +1,19 @@
-# 🎮 CyberManager - Sistema de Gestión para LAN Center
+# CyberManager - Sistema de Gestión para LAN Center
 
 Sistema web administrativo diseñado para gestionar el alquiler de computadoras, control de usuarios y venta de productos en un Ciber Café.
 
-### 🚀 Tecnologías
+### Tecnologías
 * **Frontend:** React + Vite
 * **Estilos:** Bootstrap / CSS
 * **Backend:** JSON Server (API REST simulada)
 
-### 📋 Funcionalidades Principales
+### Funcionalidades Principales
 * **Dashboard:** Vista general de PCs disponibles y ocupadas.
 * **Gestión de Alquiler:** Control de sesiones por tiempo y costo.
 * **Administración:** CRUD completo de 10 entidades (PCs, Clientes, Juegos, Productos, Empleados, etc.).
 * **Seguridad:** Login de acceso para administradores.
 
-### 🛠️ Instalación y Ejecución
+### Instalación y Ejecución
 
 1.  **Clonar el repositorio**
     ```bash
